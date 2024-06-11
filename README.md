@@ -5,6 +5,7 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 ## Table
 
 | SECTION NUMBER | SECTION NAME | SECTION TYPE | SECTION FLAGS | ENTRY SIZE | SECTION ALIGNMENT | LINK SECTION | INFO SECTION | SECTION DESCRIPTION |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 0 | <UNNAMED> | `SHT_NULL` | --- | 0 | 0 | <NONE> | <NONE> | null section |
 | 1 | `.interp` | `SHT_PROGBITS` | A-- | 0 | 1 | <NONE> | <NONE> | <NONE> |
 | 2 | `.note.ABI-tag` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
