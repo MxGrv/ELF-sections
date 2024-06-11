@@ -4,65 +4,77 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 
 ## Table
 
-| SECTION NUMBER | SECTION NAME | SECTION TYPE | SECTION FLAGS | ENTRY SIZE | SECTION ALIGNMENT | LINK SECTION | INFO SECTION | SECTION DESCRIPTION |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | <NONE> | `SHT_NULL` | --- | 0 | 0 | <NONE> | <NONE> | null section |
-| 1 | `.interp` | `SHT_PROGBITS` | A-- | 0 | 1 | <NONE> | <NONE> | <NONE> |
-| 2 | `.note.ABI-tag` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
-| 3 | `.note.gnu.build-id` | `SHT_NOTE` | A-- | ? | ? | ? | ? | <NONE> |
-| 4 | `.hash` | `SHT_HASH` | A-- | 4 | 8 | `.dynsym` | <NONE> | original hash table |
-| 5 | `.gnu.hash` | `SHT_GNU_HASH` | A-- | 0 | 8 | `.dynsym` | <NONE> | GNU hash table |
-| 6 | `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | `.interp` | dynamic symbol table |
-| 7 | `.dynstr` | `SHT_STRTAB` | A-- | 0 | 1 | <NONE> | <NONE> | dynamic string table |
-| 8 | `.gnu.version` | `SHT_GNU_VERSYM` | A-- | 2 | 2 | ? | ? | GNU version symbol table |
-| 9 | `.gnu.version_d` | `SHT_GNU_VERDEF` | A-- | ? | ? | ? | ? | GNU version definition section |
-| 10 | `.gnu.version_r` | `SHT_GNU_VERNEED` | A-- | 0 | 8 | ? | ? | GNU version needs (requirements) section |
-| 11 | `.rela.dyn` | `SHT_RELA` | A-- | 24 | 8 | `.dynsym` | <NONE> | relocation table, relocations with addends |
-| 12 | `.rela.plt` | `SHT_RELA` | A--[I] | 24 | 8 | `.dynsym` | `.got.plt` | relocation table, relocations with addends |
-| 13 | `.init` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
-| 14 | `.plt` | `SHT_PROGBITS` | A-X | 16 | 16 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
-| 15 | `.plt.got` | `SHT_PROGBITS` | A-X | 8 | 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
-| 16 | `.text` | `SHT_PROGBITS` | A-X | 0 | 16 | <NONE> | <NONE> | contains most functions |
-| 17 | `.fini` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
-| 18 | `.rodata` | `SHT_PROGBITS` | A-- | 0 | 32 | <NONE> | <NONE> | initialized read-only data |
-| 19 | `.qtmimedatabase` | `SHT_PROGBITS` | A-- | 0 | 4096 | <NONE> | <NONE> | C++ Qt framework related |
-| 20 | `.eh_frame_hdr` | `SHT_PROGBITS` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
-| 21 | `.eh_frame` | `SHT_PROGBITS` | A-- | 0 | 8 | <NONE> | <NONE> | <NONE> |
-| 22 | `.gcc_except_table` | `SHT_PROGBITS` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
-| 23 | `.qtmetadata` | `SHT_PROGBITS` | A-- | ? | ? | ? | ? | C++ Qt framework related |
-| 24 | `.data.rel.ro` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | <NONE> |
-| 25 | `.data.rel.ro.local` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| 26 | `.ctors` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| 27 | `.dtors` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| 28 | `.jcr` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| 29 | `.tdata` | `SHT_PROGBITS` | AW-[T] | 0 | 16 | <NONE> | <NONE> | TLS related |
-| 30 | `.tbss` | `SHT_NOBITS` | AW-[T] | 0 | 8 | <NONE> | <NONE> | TLS related |
-| 31 | `.preinit_array` | `SHT_PREINIT_ARRAY` | AW- | ? | ? | ? | ? | `ElfXX_Addr[]` |
-| 32 | `.init_array` | `SHT_INIT_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
-| 33 | `.fini_array` | `SHT_FINI_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
-| 34 | `.dynamic` | `SHT_DYNAMIC` | AW- | 16 | 8 | `.dynstr` | <NONE> | dynamic linking information table |
-| 35 | `.got` | `SHT_PROGBITS` | AW- | 8 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
-| 36 | `.got.plt` | `SHT_PROGBITS` | AW- | 8 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
-| 37 | `.data` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | initialized data |
-| 38 | `.tm_clone_table` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| 39 | `.fpcdata` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | initialized data, FPC (Free Pascal Compiler) toolchain related |
-| 40 | `.bss` | `SHT_NOBITS` | AW- | 0 | 64 | <NONE> | <NONE> | uninitilized data |
-| 41 | `.comment` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | <NONE> |
-| 42 | `.go_export` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | Go language related |
-| 43 | `.gnu_debuglink` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 44 | `.debug_aranges` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 45 | `.debug_info` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 46 | `.debug_abbrev` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 47 | `.debug_line` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 48 | `.debug_str` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 49 | `.debug_loc` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 50 | `.debug_ranges` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 51 | `.debug_macro` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 52 | `.debug_frame` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| 53 | `.note.gnu.gold-version` | `SHT_NOTE` | --- | ? | ? | ? | ? | <NONE> |
-| 54 | `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | ? | non-dynamic (static) symbol table |
-| 55 | `.strtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | non-dynamic (static) string table |
-| 56 | `.shstrtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | section header string table, contains names of all section |
+| SECTION NAME | SECTION TYPE | SECTION FLAGS | ENTRY SIZE | SECTION ALIGNMENT | LINK SECTION | INFO SECTION | SECTION DESCRIPTION |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| <NONE> | `SHT_NULL` | --- | 0 | 0 | <NONE> | <NONE> | null section |
+| `.interp` | `SHT_PROGBITS` | A-- | 0 | 1 | <NONE> | <NONE> | <NONE> |
+| `.note.gnu.property` | `SHT_NOTE` | A-- | 0 | 8 | <NONE> | <NONE> | <NONE> |
+| `.note.gnu.build-id` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
+| `.note.ABI-tag` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
+| `.hash` | `SHT_HASH` | A-- | 4 | 8 | `.dynsym` | <NONE> | original hash table |
+| `.gnu.hash` | `SHT_GNU_HASH` | A-- | 0 | 8 | `.dynsym` | <NONE> | GNU hash table |
+| `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | `.interp` | dynamic symbol table |
+| `.dynstr` | `SHT_STRTAB` | A-- | 0 | 1 | <NONE> | <NONE> | dynamic string table |
+| `.gnu.version` | `SHT_GNU_VERSYM` | A-- | 2 | 2 | ? | ? | GNU version symbol table |
+| `.gnu.version_d` | `SHT_GNU_VERDEF` | A-- | ? | ? | ? | ? | GNU version definition section |
+| `.gnu.version_r` | `SHT_GNU_VERNEED` | A-- | 0 | 8 | ? | ? | GNU version needs (requirements) section |
+| `.rela.dyn` | `SHT_RELA` | A-- | 24 | 8 | `.dynsym` | <NONE> | relocation table, relocations with addends |
+| `.rela.plt` | `SHT_RELA` | A--[I] | 24 | 8 | `.dynsym` or `.symtab` | `.got.plt` | relocation table, relocations with addends |
+| `.init` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
+| `.plt` | `SHT_PROGBITS` | A-X | 16 or 0 | 16 or 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
+| `.plt.got` | `SHT_PROGBITS` | A-X | 8 | 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
+| `.text` | `SHT_PROGBITS` | A-X | 0 | 16 or 64 | <NONE> | <NONE> | contains most functions |
+| `__libc_freeres_fn` | `SHT_PROGBITS` | A-X | 0 | 16 | <NONE> | <NONE> | contains GNU `libc` functions when building with `-static` |
+| `.fini` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
+| `.rodata` | `SHT_PROGBITS` | A-- | 0 | 32 | <NONE> | <NONE> | initialized read-only data |
+| `.qml_compile_hash` | `SHT_PROGBITS` | A-- | 0 | 32 | <NONE> | <NONE> | C++ Qt framework related |
+| `.qtmimedatabase` | `SHT_PROGBITS` | A-- | 0 | 4096 | <NONE> | <NONE> | C++ Qt framework related |
+| `.stapsdt.base` | `SHT_PROGBITS` | A-- | 0 | 1 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
+| `rodata.cst32` | `SHT_PROGBITS` | A--[M] | 0 | 32 | <NONE> | <NONE> | <NONE> |
+| `.eh_frame_hdr` | `SHT_PROGBITS` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
+| `.eh_frame` | `SHT_PROGBITS` | A-- | 0 | 8 | <NONE> | <NONE> | <NONE> |
+| `.gcc_except_table` | `SHT_PROGBITS` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
+| `.qtmetadata` | `SHT_PROGBITS` | A-- | ? | ? | ? | ? | C++ Qt framework related |
+| `.data.rel.ro` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | <NONE> |
+| `.data.rel.ro.local` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
+| `.ctors` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
+| `.dtors` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
+| `.jcr` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
+| `.tdata` | `SHT_PROGBITS` | AW-[T] | 0 | 16 | <NONE> | <NONE> | TLS related |
+| `.tbss` | `SHT_NOBITS` | AW-[T] | 0 | 8 | <NONE> | <NONE> | TLS related |
+| `.preinit_array` | `SHT_PREINIT_ARRAY` | AW- | ? | ? | ? | ? | `ElfXX_Addr[]` |
+| `.init_array` | `SHT_INIT_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
+| `.fini_array` | `SHT_FINI_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
+| `.dynamic` | `SHT_DYNAMIC` | AW- | 16 | 8 | `.dynstr` | <NONE> | dynamic linking information table |
+| `.got` | `SHT_PROGBITS` | AW- | 8 or 0 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
+| `.got.plt` | `SHT_PROGBITS` | AW- | 8 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
+| `.data` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | initialized data |
+| `.tm_clone_table` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
+| `.fpcdata` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | initialized data, FPC (Free Pascal Compiler) toolchain related |
+| `__libc_subfreeres` | `SHT_PROGBITS` | AW-[o] | 0 | 8 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
+| `__libc_IO_vtables` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
+| `.bss` | `SHT_NOBITS` | AW- | 0 | 64 | <NONE> | <NONE> | uninitilized data |
+| `__libc_freeres_ptrs` | `SHT_NOBITS` | AW- | 0 | 8 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
+| `.comment` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | <NONE> |
+| `.go_export` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | Go language related |
+| `.gnu_debuglink` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
+| `.note.stapsdt` | `SHT_NOTE` | --- | 0 | 4 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
+| `.debug_aranges` | `SHT_PROGBITS` | --- | 0 | 16 | <NONE> | <NONE> | debugging related |
+| `.debug_info` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_abbrev` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_line` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_str` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_line_str` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_loclists` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_rnglists` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_loc` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
+| `.debug_ranges` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
+| `.debug_macro` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
+| `.debug_frame` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
+| `.note.gnu.gold-version` | `SHT_NOTE` | --- | ? | ? | ? | ? | <NONE> |
+| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | ? | non-dynamic (static) symbol table |
+| `.strtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | non-dynamic (static) string table |
+| `.shstrtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | section header string table, contains names of all section |
 
 Legend for section flags:
 - basic flags:
@@ -74,12 +86,12 @@ Legend for section flags:
     - `M` - merge flag (?),
     - `S` - strings flag (?),
     - `I` - info flag (?),
+    - `o` - OS specific flag (?),
     - `L` - link order flag (?),
     - `O` - extra OS processing required flag (?),
     - `G` - group flag (?),
     - `C` - compressed flag (?),
     - `x` - unknown flag (?),
-    - `o` - OS specific flag (?),
     - `E` - exclude flag (?),
     - `l` - large flag (?),
     - `p` - processor specific flag (?).
@@ -89,7 +101,7 @@ Legend for section flags:
 This table enumerates possible sections with respect to the default order; however, for some adjacent sections, their relative order can vary.
 
 Notes for specific sections (referenced by names):
-- `.interp` - contains a zero-terminated ASCII string with the path of the program interpreter, typical contents is "/lib64/ld-linux-x86-64.so.2";
+- `.interp` - contains a zero-terminated ASCII string with the path of the program interpreter, typical contents is `/lib64/ld-linux-x86-64.so.2`;
 - `.hash` - see details [here](https://flapenguin.me/elf-dt-hash);
 - `.gnu.hash` - see details [here](https://flapenguin.me/elf-dt-gnu-hash);
 - `.gnu.version` - contains an array of entries of 2 bytes size, where:
