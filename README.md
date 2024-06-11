@@ -6,19 +6,19 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 
 | SECTION NUMBER | SECTION NAME | SECTION TYPE | SECTION FLAGS | ENTRY SIZE | SECTION ALIGNMENT | LINK SECTION | INFO SECTION | SECTION DESCRIPTION |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | <UNNAMED> | `SHT_NULL` | --- | 0 | 0 | <NONE> | <NONE> | null section |
+| 0 | <NONE> | `SHT_NULL` | --- | 0 | 0 | <NONE> | <NONE> | null section |
 | 1 | `.interp` | `SHT_PROGBITS` | A-- | 0 | 1 | <NONE> | <NONE> | <NONE> |
 | 2 | `.note.ABI-tag` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
 | 3 | `.note.gnu.build-id` | `SHT_NOTE` | A-- | ? | ? | ? | ? | <NONE> |
-| 4 | `.hash` | `SHT_HASH` | A-- | 4 | 8 | ".dynsym" | <NONE> | original hash table |
-| 5 | `.gnu.hash` | `SHT_GNU_HASH` | A-- | 0 | 8 | ".dynsym" | <NONE> | GNU hash table |
-| 6 | `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | ".dynstr" | ".interp" | dynamic symbol table |
+| 4 | `.hash` | `SHT_HASH` | A-- | 4 | 8 | `.dynsym` | <NONE> | original hash table |
+| 5 | `.gnu.hash` | `SHT_GNU_HASH` | A-- | 0 | 8 | `.dynsym` | <NONE> | GNU hash table |
+| 6 | `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | `.interp` | dynamic symbol table |
 | 7 | `.dynstr` | `SHT_STRTAB` | A-- | 0 | 1 | <NONE> | <NONE> | dynamic string table |
 | 8 | `.gnu.version` | `SHT_GNU_VERSYM` | A-- | 2 | 2 | ? | ? | GNU version symbol table |
 | 9 | `.gnu.version_d` | `SHT_GNU_VERDEF` | A-- | ? | ? | ? | ? | GNU version definition section |
 | 10 | `.gnu.version_r` | `SHT_GNU_VERNEED` | A-- | 0 | 8 | ? | ? | GNU version needs (requirements) section |
-| 11 | `.rela.dyn` | `SHT_RELA` | A-- | 24 | 8 | ".dynsym" | <NONE> | relocation table, relocations with addends |
-| 12 | `.rela.plt` | `SHT_RELA` | A--[I] | 24 | 8 | ".dynsym" | ".got.plt" | relocation table, relocations with addends |
+| 11 | `.rela.dyn` | `SHT_RELA` | A-- | 24 | 8 | `.dynsym` | <NONE> | relocation table, relocations with addends |
+| 12 | `.rela.plt` | `SHT_RELA` | A--[I] | 24 | 8 | `.dynsym` | `.got.plt` | relocation table, relocations with addends |
 | 13 | `.init` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
 | 14 | `.plt` | `SHT_PROGBITS` | A-X | 16 | 16 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
 | 15 | `.plt.got` | `SHT_PROGBITS` | A-X | 8 | 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
@@ -40,7 +40,7 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | 31 | `.preinit_array` | `SHT_PREINIT_ARRAY` | AW- | ? | ? | ? | ? | `ElfXX_Addr[]` |
 | 32 | `.init_array` | `SHT_INIT_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
 | 33 | `.fini_array` | `SHT_FINI_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
-| 34 | `.dynamic` | `SHT_DYNAMIC` | AW- | 16 | 8 | ".dynstr" | <NONE> | dynamic linking information table |
+| 34 | `.dynamic` | `SHT_DYNAMIC` | AW- | 16 | 8 | `.dynstr` | <NONE> | dynamic linking information table |
 | 35 | `.got` | `SHT_PROGBITS` | AW- | 8 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
 | 36 | `.got.plt` | `SHT_PROGBITS` | AW- | 8 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
 | 37 | `.data` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | initialized data |
@@ -60,7 +60,7 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | 51 | `.debug_macro` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
 | 52 | `.debug_frame` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
 | 53 | `.note.gnu.gold-version` | `SHT_NOTE` | --- | ? | ? | ? | ? | <NONE> |
-| 54 | `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | ".strtab" | ? | non-dynamic (static) symbol table |
+| 54 | `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | ? | non-dynamic (static) symbol table |
 | 55 | `.strtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | non-dynamic (static) string table |
 | 56 | `.shstrtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | section header string table, contains names of all section |
 
@@ -90,11 +90,11 @@ This table enumerates possible sections with respect to the default order; howev
 
 Notes for specific sections (referenced by names):
 - `.interp` - contains a zero-terminated ASCII string with path name of a program interpreter, typical contents is "/lib64/ld-linux-x86-64.so.2";
-- `.hash` - see details [here|https://flapenguin.me/elf-dt-hash];
-- `.gnu.hash` - see details [here|https://flapenguin.me/elf-dt-gnu-hash];
+- `.hash` - see details [here](https://flapenguin.me/elf-dt-hash);
+- `.gnu.hash` - see details [here](https://flapenguin.me/elf-dt-gnu-hash);
 - `.gnu.version` - contains an array of 2-byte entries, where value 0 stands for a local symbol, value 1 stands for a global symbol, and values 2+ stand for symbols of the corresponding shared libraries, specified in section 10;
 - `.gnu.version_r` - contains a list for mapping symbol version table entry values to shared libraries (both by `SONAME`-s and versions);
-- `.comment` - contains one or several zero-terminated ASCII strings (as a chain) with version control information, typical contents is like "GCC: (GNU) 5.3.0" and "GCC: (GNU) 5.5.0".
+- `.comment` - contains one or several zero-terminated ASCII strings (as a chain) with version control information, typical contents is like `GCC: (GNU) 5.3.0` and `GCC: (GNU) 5.5.0`.
 
 ## TODOs
 
