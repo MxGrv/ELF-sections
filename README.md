@@ -89,11 +89,14 @@ Legend for section flags:
 This table enumerates possible sections with respect to the default order; however, for some adjacent sections, their relative order can vary.
 
 Notes for specific sections (referenced by names):
-- `.interp` - contains a zero-terminated ASCII string with path name of a program interpreter, typical contents is "/lib64/ld-linux-x86-64.so.2";
+- `.interp` - contains a zero-terminated ASCII string with the path of the program interpreter, typical contents is "/lib64/ld-linux-x86-64.so.2";
 - `.hash` - see details [here](https://flapenguin.me/elf-dt-hash);
 - `.gnu.hash` - see details [here](https://flapenguin.me/elf-dt-gnu-hash);
-- `.gnu.version` - contains an array of 2-byte entries, where value 0 stands for a local symbol, value 1 stands for a global symbol, and values 2+ stand for symbols of the corresponding shared libraries, specified in section 10;
-- `.gnu.version_r` - contains a list for mapping symbol version table entry values to shared libraries (both by `SONAME`-s and versions);
+- `.gnu.version` - contains an array of entries of 2 bytes size, where:
+    - value 0 stands for a local symbol,
+    - value 1 stands for a global symbol,
+    - values 2...(N-1) stand for symbols of the corresponding shared libraries, specified in `.gnu.version_r`;
+- `.gnu.version_r` - contains a list of entries for mapping symbol version table entry values to shared libraries (both by `SONAME`-s and versions);
 - `.comment` - contains one or several zero-terminated ASCII strings (as a chain) with version control information, typical contents is like `GCC: (GNU) 5.3.0` and `GCC: (GNU) 5.5.0`.
 
 ## TODOs
