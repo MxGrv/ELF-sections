@@ -13,20 +13,21 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | `.note.ABI-tag` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
 | `.hash` | `SHT_HASH` | A-- | 4 | 8 | `.dynsym` | <NONE> | original hash table |
 | `.gnu.hash` | `SHT_GNU_HASH` | A-- | 0 | 8 | `.dynsym` | <NONE> | GNU hash table |
-| `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | `.interp` | dynamic symbol table |
+| `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | value of 1 (?) | dynamic symbol table |
 | `.dynstr` | `SHT_STRTAB` | A-- | 0 | 1 | <NONE> | <NONE> | dynamic string table |
-| `.gnu.version` | `SHT_GNU_VERSYM` | A-- | 2 | 2 | ? | ? | GNU version symbol table |
+| `.gnu.version` | `SHT_GNU_VERSYM` | A-- | 2 | 2 | `.dynsym` | <NONE> | GNU version symbol table |
 | `.gnu.version_d` | `SHT_GNU_VERDEF` | A-- | ? | ? | ? | ? | GNU version definition section |
-| `.gnu.version_r` | `SHT_GNU_VERNEED` | A-- | 0 | 8 | ? | ? | GNU version needs (requirements) section |
+| `.gnu.version_r` | `SHT_GNU_VERNEED` | A-- | 0 | 8 | `.dynstr` | distinct values (?) | GNU version needs (requirements) section |
 | `.rela.dyn` | `SHT_RELA` | A-- | 24 | 8 | `.dynsym` | <NONE> | relocation table, relocations with addends |
-| `.rela.plt` | `SHT_RELA` | A--[I] | 24 | 8 | `.dynsym` or `.symtab` | `.got.plt` | relocation table, relocations with addends |
+| `.rela.plt` | `SHT_RELA` | A--[I] | 24 | 8 | `.dynsym` or `.symtab` | `.got.plt` or `.got` | relocation table, relocations with addends |
 | `.init` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
 | `.plt` | `SHT_PROGBITS` | A-X | 16 or 0 | 16 or 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
-| `.plt.got` | `SHT_PROGBITS` | A-X | 8 | 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
+| `.plt.got` | `SHT_PROGBITS` | A-X | 16 or 8 or 0 | 16 or 8 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
+| `.plt.sec` | `SHT_PROGBITS` | A-X | 16 | 16 | <NONE> | <NONE> | procedure linkage table, contains code stubs in a table |
 | `.text` | `SHT_PROGBITS` | A-X | 0 | 16 or 64 | <NONE> | <NONE> | contains most functions |
 | `__libc_freeres_fn` | `SHT_PROGBITS` | A-X | 0 | 16 | <NONE> | <NONE> | contains GNU `libc` functions when building with `-static` |
 | `.fini` | `SHT_PROGBITS` | A-X | 0 | 4 | <NONE> | <NONE> | contains a few functions |
-| `.rodata` | `SHT_PROGBITS` | A-- | 0 | 32 | <NONE> | <NONE> | initialized read-only data |
+| `.rodata` | `SHT_PROGBITS` | A-- | 0 | 4 or 16 or 32 | <NONE> | <NONE> | initialized read-only data |
 | `.qml_compile_hash` | `SHT_PROGBITS` | A-- | 0 | 32 | <NONE> | <NONE> | C++ Qt framework related |
 | `.qtmimedatabase` | `SHT_PROGBITS` | A-- | 0 | 4096 | <NONE> | <NONE> | C++ Qt framework related |
 | `.stapsdt.base` | `SHT_PROGBITS` | A-- | 0 | 1 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
@@ -34,45 +35,47 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | `.eh_frame_hdr` | `SHT_PROGBITS` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
 | `.eh_frame` | `SHT_PROGBITS` | A-- | 0 | 8 | <NONE> | <NONE> | <NONE> |
 | `.gcc_except_table` | `SHT_PROGBITS` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
-| `.qtmetadata` | `SHT_PROGBITS` | A-- | ? | ? | ? | ? | C++ Qt framework related |
-| `.data.rel.ro` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | <NONE> |
-| `.data.rel.ro.local` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| `.ctors` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| `.dtors` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| `.jcr` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
-| `.tdata` | `SHT_PROGBITS` | AW-[T] | 0 | 16 | <NONE> | <NONE> | TLS related |
+| `.qtmetadata` | `SHT_PROGBITS` | A-- | 0 | 32 | <NONE> | <NONE> | C++ Qt framework related |
+| `.ctors` | `SHT_PROGBITS` | AW- | 0 | 8 | <NONE> | <NONE> | <NONE> |
+| `.dtors` | `SHT_PROGBITS` | AW- | 0 | 8 | <NONE> | <NONE> | <NONE> |
+| `.jcr` | `SHT_PROGBITS` | AW- | 0 | 8 | <NONE> | <NONE> | <NONE> |
+| `.tdata` | `SHT_PROGBITS` | AW-[T] | 0 | 16 or 8 | <NONE> | <NONE> | TLS related |
 | `.tbss` | `SHT_NOBITS` | AW-[T] | 0 | 8 | <NONE> | <NONE> | TLS related |
 | `.preinit_array` | `SHT_PREINIT_ARRAY` | AW- | ? | ? | ? | ? | `ElfXX_Addr[]` |
 | `.init_array` | `SHT_INIT_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
 | `.fini_array` | `SHT_FINI_ARRAY` | AW- | 8 | 8 | <NONE> | <NONE> | `ElfXX_Addr[]` |
+| `.data.rel.ro.local` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | <NONE> |
+| `.data.rel.ro` | `SHT_PROGBITS` | AW- | 0 | 32 or 8 | <NONE> | <NONE> | <NONE> |
 | `.dynamic` | `SHT_DYNAMIC` | AW- | 16 | 8 | `.dynstr` | <NONE> | dynamic linking information table |
 | `.got` | `SHT_PROGBITS` | AW- | 8 or 0 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
-| `.got.plt` | `SHT_PROGBITS` | AW- | 8 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
-| `.data` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | initialized data |
-| `.tm_clone_table` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | <NONE> |
+| `.got.plt` | `SHT_PROGBITS` | AW- | 8 or 0 | 8 | <NONE> | <NONE> | global offset table, `ElfXX_Addr[]` |
+| `.data` | `SHT_PROGBITS` | AW- | 0 | 8 or 32 | <NONE> | <NONE> | initialized data |
+| `.tm_clone_table` | `SHT_PROGBITS` | AW- | 0 | 8 | <NONE> | <NONE> | <NONE> |
 | `.fpcdata` | `SHT_PROGBITS` | AW- | ? | ? | ? | ? | initialized data, FPC (Free Pascal Compiler) toolchain related |
 | `__libc_subfreeres` | `SHT_PROGBITS` | AW-[o] | 0 | 8 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
 | `__libc_IO_vtables` | `SHT_PROGBITS` | AW- | 0 | 32 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
-| `.bss` | `SHT_NOBITS` | AW- | 0 | 64 | <NONE> | <NONE> | uninitilized data |
+| `.bss` | `SHT_NOBITS` | AW- | 0 | 64 or 32 or 8 | <NONE> | <NONE> | uninitilized data |
 | `__libc_freeres_ptrs` | `SHT_NOBITS` | AW- | 0 | 8 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
 | `.comment` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | <NONE> |
-| `.go_export` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | Go language related |
+| `.go_export` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | Go language related |
 | `.gnu_debuglink` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
 | `.note.stapsdt` | `SHT_NOTE` | --- | 0 | 4 | <NONE> | <NONE> | GNU `libc` related when building with `-static` |
-| `.debug_aranges` | `SHT_PROGBITS` | --- | 0 | 16 | <NONE> | <NONE> | debugging related |
+| `.debug_aranges` | `SHT_PROGBITS` | --- | 0 | 1 or 16 | <NONE> | <NONE> | debugging related |
+| `.debug_pubnames` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
 | `.debug_info` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
 | `.debug_abbrev` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
 | `.debug_line` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_frame` | `SHT_PROGBITS` | --- | 0 | 8 | <NONE> | <NONE> | debugging related |
 | `.debug_str` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | debugging related |
 | `.debug_line_str` | `SHT_PROGBITS` | ---[MS] | 1 | 1 | <NONE> | <NONE> | debugging related |
 | `.debug_loclists` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
 | `.debug_rnglists` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
-| `.debug_loc` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| `.debug_ranges` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| `.debug_macro` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| `.debug_frame` | `SHT_PROGBITS` | --- | ? | ? | ? | ? | debugging related |
-| `.note.gnu.gold-version` | `SHT_NOTE` | --- | ? | ? | ? | ? | <NONE> |
-| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | ? | non-dynamic (static) symbol table |
+| `.debug_loc` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_pubtypes` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.debug_ranges` | `SHT_PROGBITS` | --- | 0 | 1 or 16 | <NONE> | <NONE> | debugging related |
+| `.debug_macro` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
+| `.note.gnu.gold-version` | `SHT_NOTE` | --- | 0 | 4 | <NONE> | <NONE> | <NONE> |
+| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | distinct values (?) | non-dynamic (static) symbol table |
 | `.strtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | non-dynamic (static) string table |
 | `.shstrtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | section header string table, contains names of all section |
 
