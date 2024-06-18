@@ -13,7 +13,7 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | `.note.ABI-tag` | `SHT_NOTE` | A-- | 0 | 4 | <NONE> | <NONE> | <NONE> |
 | `.hash` | `SHT_HASH` | A-- | 4 | 8 | `.dynsym` | <NONE> | original hash table |
 | `.gnu.hash` | `SHT_GNU_HASH` | A-- | 0 | 8 | `.dynsym` | <NONE> | GNU hash table |
-| `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | `numberof(SHT_LOCAL) + 1` | dynamic symbol table |
+| `.dynsym` | `SHT_DYNSYM` | A-- | 24 | 8 | `.dynstr` | `numberof(SHT_LOCAL)` | dynamic symbol table |
 | `.dynstr` | `SHT_STRTAB` | A-- | 0 | 1 | <NONE> | <NONE> | dynamic string table |
 | `.gnu.version` | `SHT_GNU_VERSYM` | A-- | 2 | 2 | `.dynsym` | <NONE> | GNU version symbol table |
 | `.gnu.version_d` | `SHT_GNU_VERDEF` | A-- | ? | ? | ? | ? | GNU version definition section |
@@ -75,7 +75,7 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | `.debug_ranges` | `SHT_PROGBITS` | --- | 0 | 1 or 16 | <NONE> | <NONE> | debugging related |
 | `.debug_macro` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
 | `.note.gnu.gold-version` | `SHT_NOTE` | --- | 0 | 4 | <NONE> | <NONE> | <NONE> |
-| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | `numberof(SHT_LOCAL) + 1` | non-dynamic (static) symbol table |
+| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | `numberof(SHT_LOCAL)` | non-dynamic (static) symbol table |
 | `.strtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | non-dynamic (static) string table |
 | `.shstrtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | section header string table, contains names of all section |
 
