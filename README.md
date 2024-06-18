@@ -114,7 +114,7 @@ Notes for specific sections (referenced by names):
     - values 2...(N-1) stand for symbols of the corresponding shared libraries, specified in `.gnu.version_r`;
 - `.gnu.version_r` - contains a list of entries for mapping symbol version table entry values to shared libraries (both by `SONAME`-s and versions);
 - `.comment` - contains one or several zero-terminated ASCII strings (as a chain) with version control information, typical contents is like `GCC: (GNU) 5.3.0` and `GCC: (GNU) 5.5.0`;
-- for `.dynsym` and `.symtab`, `ElfXX_Shdr::sh_info` must be one greater than the symbol table index of the last local symbol (i.e. with binding {{STB_LOCAL}}) - see details in the ELF specification extension [Book III - Operating System Specific - UNIX System V Release 4](https://refspecs.linuxfoundation.org/elf/elf.pdf).
+- for `.dynsym` and `.symtab`, `ElfXX_Shdr::sh_info` must be one greater than the symbol table index of the last local symbol (i.e. with binding {{STB_LOCAL}}), including the null symbols, and all these symbols are always in the head of the table - see details in the ELF specification extension [Book III - Operating System Specific - UNIX System V Release 4](https://refspecs.linuxfoundation.org/elf/elf.pdf).
 
 ## TODOs
 
