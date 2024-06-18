@@ -75,7 +75,7 @@ This list of ELF sections is only for the x86-64 (AMD64) 64-bit ELF executable f
 | `.debug_ranges` | `SHT_PROGBITS` | --- | 0 | 1 or 16 | <NONE> | <NONE> | debugging related |
 | `.debug_macro` | `SHT_PROGBITS` | --- | 0 | 1 | <NONE> | <NONE> | debugging related |
 | `.note.gnu.gold-version` | `SHT_NOTE` | --- | 0 | 4 | <NONE> | <NONE> | <NONE> |
-| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | distinct values (?) | non-dynamic (static) symbol table |
+| `.symtab` | `SHT_SYMTAB` | --- | 24 | 8 | `.strtab` | `numberof(SHT_LOCAL) + 1` | non-dynamic (static) symbol table |
 | `.strtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | non-dynamic (static) string table |
 | `.shstrtab` | `SHT_STRTAB` | --- | 0 | 1 | <NONE> | <NONE> | section header string table, contains names of all section |
 
